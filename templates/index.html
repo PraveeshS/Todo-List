@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Django To-Do List App</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background:rgb(112, 157, 206);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: #007bff;
+            padding: 15px;
+            color: white;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        form {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #007bff;
+        }
+
+        .addBtn {
+            padding: 10px;
+            width: 80px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .addBtn:hover {
+            background: #0056b3;
+        }
+
+        .task-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            font-size: 18px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .task-card:hover {
+            background: #e0e0e0;
+            transform: scale(1.02);
+        }
+
+        .close {
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #ff4d4d;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close:hover {
+            background: #cc0000;
+        }
+
+        .close a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .close a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Django To-Do List App</div>
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" id="myInput" placeholder="Enter a task...">
+        <button type="submit" class="addBtn">Add</button>
+    </form>
+
+    <div id="taskList">
+        {% for todo in todos reversed %}
+        <div class="task-card">
+            <span>{{ todo.title | title }}</span>
+            <span class="close"><a href="delete/{{ todo.id }}">Delete</a></span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
